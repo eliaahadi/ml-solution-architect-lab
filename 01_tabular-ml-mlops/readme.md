@@ -1,0 +1,40 @@
+# Project 1 – Tabular ML with MLOps flavor
+
+Goal: Build an end to end tabular ML pipeline for a business problem such as credit risk scoring or housing price prediction.
+
+This project covers:
+
+- Data loading and exploratory data analysis (EDA)
+- Feature engineering with scikit learn pipelines
+- Model training and evaluation
+- Experiment tracking with MLflow
+- Serving the trained model via a FastAPI endpoint
+- Basic tests for data and inference
+
+## Architecture
+
+High level flow:
+
+1. `data.py` loads raw data from a CSV or local file.
+2. `features.py` builds a `ColumnTransformer` for preprocessing.
+3. `model.py` creates a `Pipeline` that joins preprocessing with the estimator.
+4. `train.py` runs training, logs experiments to MLflow, and persists the best model.
+5. `api.py` loads the persisted model and exposes a `/predict` endpoint.
+
+## How to run
+
+From the repo root, activate your virtualenv, then:
+
+```bash
+cd 01_tabular-ml-mlops
+
+# train and log to MLflow
+python -m src.train
+
+# start API
+uvicorn src.api:app --reload
+
+# after you send a request
+curl -X POST "http://127.0.0.1:8000/predict" \
+  -H "Content-Type: application/json" \
+  -d '{"features": {"feature_1": 0.1, "feature_2": 3.14}}'

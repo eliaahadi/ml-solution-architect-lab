@@ -1,0 +1,18 @@
+pandas
+numpy
+scikit-learn
+mlflow
+fastapi
+uvicorn[standard]
+pytest
+python-dotenv
+
+torch        # or tensorflow
+torchvision
+
+gymnasium
+stable-baselines3
+
+sentence-transformers
+chromadb
+faiss-cpu
