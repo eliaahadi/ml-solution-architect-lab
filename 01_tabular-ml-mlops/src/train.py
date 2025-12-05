@@ -36,9 +36,10 @@ def train(task_type: TaskType, target_col: str) -> Path:
 
 
 if __name__ == "__main__":
-    # For your first run, update these to match your dataset
+    # Titanic is a binary classification problem
+    # Ensure your CSV has a 'Survived' column as the target
     task_type: TaskType = "classification"
-    target_col = "target"  # change to your real target column
+    target_col = "Survived"
 
     model_path = train(task_type=task_type, target_col=target_col)
     print(f"Model saved to: {model_path}")

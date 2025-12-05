@@ -38,3 +38,35 @@ uvicorn src.api:app --reload
 curl -X POST "http://127.0.0.1:8000/predict" \
   -H "Content-Type: application/json" \
   -d '{"features": {"feature_1": 0.1, "feature_2": 3.14}}'
+```
+
+### Architect “checklist” for this project
+
+As a solution architect, when you glance at this project, you want to be able to say:
+
+1.. Data → Model → API is wired cleanly
+
+- Data loader (data.py) uses a clear config path.
+- Feature engineering is modular and testable (features.py).
+- Model training is decoupled from serving (train.py vs api.py).
+- Preprocessing is handled in a pipeline (features.py + model.py).
+- Serving uses the exact same pipeline (no training/serving skew).
+
+2.. Experiments are traceable
+
+- MLflow logs every run with metrics and artifacts.
+- You can compare experiments over time (e.g., baseline vs tuned model).
+
+3.. It’s reproducible
+
+- A new dev can:
+- Clone repo
+- pip install -r requirements.txt
+- make train && make serve
+- No hidden “magic” paths or manual steps.
+  
+4.. You can talk about tradeoffs
+
+- Why a RandomForest as a baseline vs XGBoost/LightGBM.
+- How you’d move MLflow from local filesystem → DB backend in prod.
+- How you’d containerize this (later: Dockerfile) and deploy on AWS/Azure/GCP.

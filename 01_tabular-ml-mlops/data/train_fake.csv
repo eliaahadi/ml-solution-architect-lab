@@ -1,0 +1,5 @@
+num_feature,cat_feature,target
+1.0,a,0
+2.0,b,1
+3.0,a,0
+4.0,b,1
