@@ -507,3 +507,72 @@ That final 0 or 1 is what you see in the API response.
 	•	api.py:
 	•	Takes a new passenger, runs through the same preprocessing and forest, and returns the majority-vote 0 or 1.
 
+## Metrics to watch (Titanic survival)
+
+For this binary classification problem (`Survived` = 0/1), I focus on:
+
+### Core metrics
+
+- **Accuracy**
+  - What it is: fraction of correct predictions.
+  - Baseline: always predicting "did not survive" is ~0.62.
+  - Rough ranges for this project:
+    - ≤ **0.65** → near-baseline, model not learning much.
+    - **0.70–0.80** → reasonable for simple features and a vanilla model.
+    - **0.80–0.88** → solid, capturing useful patterns.
+    - **> 0.90** → suspicious for Titanic; check for overfitting or data leakage.
+
+- **Precision / recall (for class 1 = survived)**
+  - **Precision (survived)**: Of those predicted survived, how many actually did?
+  - **Recall (survived)**: Of all real survivors, how many did we catch?
+  - Typical goal: keep both around **0.70–0.80** and understand the tradeoff
+    (catch more survivors vs fewer false alarms).
+
+- **ROC AUC**
+  - 0.5 = random, 1.0 = perfect.
+  - For Titanic:
+    - **0.70–0.80** → okay.
+    - **0.80–0.90** → good.
+    - **> 0.90** → again, double-check for overfitting / leakage.
+
+---
+
+## Random forest – quick pros / cons
+
+**Pros**
+
+- Handles **non-linear relationships** and feature interactions out of the box.
+- Strong **baseline for tabular data** with relatively little tuning.
+- Works well with a mix of numeric + one-hot encoded categorical features.
+- More robust than a single tree, less fragile to noise.
+- Provides **feature importance** signals for basic interpretability.
+
+**Cons**
+
+- Heavier than simple models (larger model size, slower on very big data).
+- Less interpretable than logistic regression or small trees.
+- Not ideal for extremely high-dimensional, sparse data (e.g., raw text bag-of-words).
+- Can be overkill if a simple linear model performs similarly.
+
+---
+
+## StandardScaler – quick pros / cons (in this project)
+
+**Pros**
+
+- Puts numeric features on a **comparable scale** (zero mean, unit variance).
+- Plays nicely with models that *do* care about scale
+  (logistic regression, SVMs, neural nets), so the pipeline is reusable.
+- Keeps preprocessing consistent and explicit inside the scikit-learn `Pipeline`.
+
+**Cons**
+
+- Tree-based models (like random forest) do **not strictly need** scaling,
+  since they split on thresholds, not distances.
+- Slight extra preprocessing overhead and complexity.
+- Not the best choice if strong outliers dominate (where `RobustScaler` or clipping
+  might be better).
+
+In this project, I keep `StandardScaler` in the numeric branch so I can easily swap
+the estimator (e.g., try logistic regression or gradient boosting) without changing
+the preprocessing pipeline.
