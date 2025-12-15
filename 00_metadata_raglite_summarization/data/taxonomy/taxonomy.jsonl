@@ -1,0 +1,6 @@
+{"id":"topic:food-safety","type":"taxonomy","label":"Food safety","description":"Food safety inspections, contamination, recalls, HACCP, pathogens","synonyms":["FSIS","inspection","contamination","recall"]}
+{"id":"topic:ag-economics","type":"taxonomy","label":"Agricultural economics","description":"Markets, prices, farm income, commodities, trade","synonyms":["commodity","farm income","trade","markets"]}
+{"id":"program:ers","type":"taxonomy","label":"Economic Research Service (ERS)","description":"USDA ERS research and reports","synonyms":["ERS","economic research"]}
+{"id":"geo:midwest","type":"taxonomy","label":"Midwest region","description":"Midwest states and regional analysis","synonyms":["Midwest","IL","IA","MN","WI"]}
+{"id":"sensitivity:public","type":"taxonomy","label":"Public","description":"Publicly releasable information","synonyms":["public"]}
+{"id":"sensitivity:internal","type":"taxonomy","label":"Internal","description":"Internal use only","synonyms":["internal"]}

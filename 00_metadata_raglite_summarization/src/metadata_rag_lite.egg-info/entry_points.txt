@@ -1,0 +1,2 @@
+[console_scripts]
+metaragl = metaragl.cli:main
