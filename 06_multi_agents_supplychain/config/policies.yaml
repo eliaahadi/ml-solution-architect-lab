@@ -1,0 +1,32 @@
+version: "2025-12-17"
+default_effect: "ESCALATE"
+
+rules:
+  - id: "POL-001"
+    description: "Only procurement managers can view supplier pricing/contract terms."
+    when:
+      action: "VIEW_SUPPLIER_PRICING"
+      role_not_in: ["PROCUREMENT_MANAGER", "LEGAL"]
+    effect: "DENY"
+    reason: "Supplier pricing/contract terms are restricted."
+    citations:
+      - "Policy: Supplier confidentiality v3.2, section 4.1"
+
+  - id: "POL-002"
+    description: "Ops can view inventory levels."
+    when:
+      action: "VIEW_INVENTORY"
+      role_in: ["OPS", "OPS_MANAGER", "PROCUREMENT_MANAGER", "PLANNER"]
+    effect: "ALLOW"
+    reason: "Inventory is operational data for supply execution."
+    citations:
+      - "Policy: Data access matrix v1.8, inventory read access"
+
+  - id: "POL-003"
+    description: "Any request involving export-controlled regions must escalate."
+    when:
+      region_in: ["IR", "KP", "SY", "CU"]
+    effect: "ESCALATE"
+    reason: "Export-control review required."
+    citations:
+      - "Policy: Export controls handbook, escalation criteria"

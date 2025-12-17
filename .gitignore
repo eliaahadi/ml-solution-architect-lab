@@ -11,3 +11,9 @@
 cifar-10-batches-py
 
 cnn.pt
+
+
+*.pkl
+
+*.faiss
+

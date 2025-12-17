@@ -1,0 +1,33 @@
+# rag/build_index.py
+import pickle
+import sys
+from pathlib import Path
+
+# Allow running as a script from repo root: `python rag/build_index.py`
+REPO_ROOT = Path(__file__).resolve().parents[1]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+import numpy as np
+import faiss
+from sentence_transformers import SentenceTransformer
+
+from rag.ingest import ingest_docs
+
+# rag/retriever.py
+from __future__ import annotations
+import pickle
+import sys
+from pathlib import Path
+from typing import List, Tuple
+
+# Allow imports to work reliably when executed from different entrypoints
+REPO_ROOT = Path(__file__).resolve().parents[1]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+import numpy as np
+import faiss
+from sentence_transformers import SentenceTransformer
+
+from rag.ingest import Chunk
